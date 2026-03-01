@@ -1,0 +1,135 @@
+<!doctype html>
+{% extends "student-dashboard.html" %}
+{%block content%}
+{%load static%}
+<html lang="en">
+
+
+<body>
+  
+<header class="app-header w-100">
+  <nav class="navbar border-bottom border-2 fixed  navbar-expand-lg navbar-light d-flex align-items-center ">
+
+    <!-- LEFT ICONS -->
+    <ul class="navbar-nav flex-row align-items-center">
+      <li class="nav-item d-block d-xl-none">
+        <a class="nav-link nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+          <i class="ti ti-menu-2"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+          <i class="ti ti-bell-ringing"></i>
+          <div class="notification bg-primary rounded-circle"></div>
+        </a>
+      </li>
+    </ul>
+
+    <!-- RIGHT CONTENT -->
+    <div class="d-flex ms-auto align-items-center gap-3">
+
+      <div class="nav-item dropdown">
+        <a class="nav-link nav-icon-hover" data-bs-toggle="dropdown">
+          <img src="{{student.Stud_Profile_Pic.url}}"
+               width="35" height="35"
+               class="rounded-circle object-fit-cover">
+        </a>
+
+         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body mx-auto  ">
+                    <a href="javascript:void(0)" class=" d-flex align-items-center  gap-2 dropdown-item">
+                      
+
+                        <i class="ti ti-user fs-6"></i>
+                        <p class="mb-0 fs-3 ">My Profile</p>
+                      
+                    </a>
+                  <a href="{%url 'logout_fn'%}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                  </div>
+                </div>
+              </div>
+      </div>
+
+  </nav>
+</header>
+
+  
+   
+    <div class="body-wrapper ">
+
+      <div class="container  ">
+        <div class="row  justify-content-center">
+
+          <div class=" mt-5 col-lg-5 col-9 col-md-7 ">
+
+            <div class="card mt-5 fs-3 pt-2 shadow rounded-3 border border-primary">
+              <!-- Profile Image -->
+              <img src="{{student.Stud_Profile_Pic.url}}"
+                class="rounded-circle border border-3  mx-auto d-block mt-3"
+                style="width:80px;height:80px;object-fit:cover"
+                alt="Profile Image">
+
+              <div class="card-body pt-2 pb-4">
+
+                <!-- Name -->
+                <h1 class="text-center fw-bold mt-3 mb-3">
+                  {{ student.Name }}
+                </h1>
+
+                <!-- Profile Form -->
+                <form>
+
+                  <div class="mb-3">
+                    <label class="form-label">Student ID</label>
+                    <input type="text" class="form-control"
+                      value="{{ student.Stud_id }}" disabled>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Bus Number</label>
+                    <input type="number" class="form-control"
+                      value="{{ student.Bus_Number }}" disabled>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Bus Route</label>
+                    <input type="text" class="form-control"
+                      value="{{ student.Bus_Route }}" disabled>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Department</label>
+                    <input type="text" class="form-control"
+                      value="{{ student.Department }}" disabled>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label">Phone</label>
+                    <input type="number" class="form-control"
+                      value="{{ student.Phone_Number }}" disabled>
+                  </div>
+
+                  
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- Main Content End -->
+
+ 
+ 
+ 
+ 
+  </div>
+
+</body>
+</html>
+{%endblock%}

@@ -1,0 +1,70 @@
+{%extends 'staff-dashboard.html'%}
+{%block content%}
+<html>
+<body>
+
+  <div class="scan-container">
+    
+    {% if error %}
+    <div class="alert error-box">{{ error }}</div>
+    {% endif %}
+    
+    {% if success %}
+    <div class="alert success-box">{{ success }}</div>
+    {% endif %}
+    
+    {% if student %}
+    <div class="student-card">
+    <h4><b>ID:</b> {{ student.Stud_id }}</h4>
+    <h4><b>Name:</b> {{ student.Name }}</h4>
+    <h4><b>Bus Number:</b> {{ student.Bus_Number }}</h4>
+  </div>
+  {% endif %}
+  
+</div>
+<style>
+
+.scan-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 250px;
+}
+
+.student-card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 25px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  text-align: left;
+  width: 280px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.success-box {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.error-box {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+</style>
+</body>
+</html>
+{%endblock%}

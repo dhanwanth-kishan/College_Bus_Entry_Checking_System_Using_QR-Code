@@ -1,0 +1,11 @@
+class Student:
+   
+    def readd(self):
+        self.name=input("enter name ")
+        self.age=int(input("enter age "))
+    def printt(self):
+        print(self.name)
+        print(self.age)
+s1=Student()
+s1.readd()
+s1.printt()

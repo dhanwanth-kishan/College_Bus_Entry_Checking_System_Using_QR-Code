@@ -1,0 +1,150 @@
+
+
+<!doctype html>
+{%load static%}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" type="image/png" href="{% static 'dashboard/src/assets/images/logos/favicon.png'%}" />
+  <link rel="stylesheet" href="{% static 'dashboard/src/assets/css/styles.min.css'%}" />
+
+
+</head>
+
+<body>
+  <!--  Body Wrapper -->
+    
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+      
+   <aside class="left-sidebar ">
+    
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo nav-brand d-flex align-items-center justify-content-between px-4">
+          <h2 class="fw-bolder  " style="color:purple;">TransitX</h2>
+          
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="init"><div class="simplebar-wrapper selected" style="margin: 0"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask selected"><div class="simplebar-offset selected" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper selected" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content selected" style="padding: 0px 24px;">
+          <ul id="sidebarnav" class="in">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item ">
+              <a class="sidebar-link " href="{%url 'staff_dashboard'%}" aria-expanded="false">
+                <span>
+                  <i class="fa-solid fa-house"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="{%url 'scan_qr'%}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-qrcode"></i>
+                </span>
+                <span class="hide-menu">Scan QR Code</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Profile</span>
+            </li>
+            <li class="sidebar-item ">
+              <a class="sidebar-link " href="{%url 'staff_profile'%}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user"></i>
+                </span>
+                <span class="hide-menu">View Profile</span>
+              </a>
+            </li>
+            <li class="sidebar-item ">
+              <a class="sidebar-link " href="{%url 'display_stud_bus'%}" aria-expanded="false">
+                <span>
+                  <i class=" fa-solid fa-bus"></i>
+                </span>
+                <span class="hide-menu">Bus Details </span>
+              </a>
+            </li>
+            
+           
+            
+            
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{%url 'staff_logout_fn'%}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-logout"></i>
+                </span>
+                <span class="hide-menu">Logout</span>
+              </a>
+            </li>
+           </ul>
+          
+        </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 888px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 545px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+  </aside>
+
+  
+  
+
+<body>
+
+
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+      
+   
+</header>
+<style>
+    #reader {
+      width: 320px;
+      height: 320px;
+      margin: 20px auto;
+      border: 2px dashed #6c757d;
+      display: none;
+      padding-top:20px;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #scan-btn {
+      display: block;
+      margin: 40px auto;
+      padding: 10px 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+
+
+<h2 class="mt-5 pt-5"style="text-align:center;">Scan Student QR</h2>
+
+<button id="scan-btn">Scan QR</button>
+
+<div class="mt-5 pt-5" id="reader"></div>
+<div id="result"></div>
+
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="{%static 'assets/script.js'%}"></script>
+
+
+  </body>
+</html>  
+ 
