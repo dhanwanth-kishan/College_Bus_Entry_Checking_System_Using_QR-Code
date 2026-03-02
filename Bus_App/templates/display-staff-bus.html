@@ -81,15 +81,15 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{% url 'stud_dashboard' %}">
+              <a class="sidebar-link" href="{% url 'staff_dashboard' %}">
                 <span><i class="fa-solid fa-house"></i></span>
                 <span class="hide-menu">Dashboard</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link " href="{% url 'show_qr' %}">
+              <a class="sidebar-link " href="{% url 'scan_qr' %}">
                 <span><i class="ti ti-qrcode"></i></span>
-                <span class="hide-menu">View QR Code</span>
+                <span class="hide-menu">Scan QR Code</span>
               </a>
             </li>
 
@@ -98,20 +98,20 @@
               <span class="hide-menu">Profile</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link " href="{% url 'stud_profile' %}">
+              <a class="sidebar-link " href="{% url 'staff_profile' %}">
                 <span><i class="ti ti-user"></i></span>
                 <span class="hide-menu">View Profile</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link active" href="{% url 'display_stud_bus' %}">
+              <a class="sidebar-link active" href="{% url 'display_staff_bus' %}">
                 <span><i class="fa-solid fa-bus"></i></span>
                 <span class="hide-menu">My Bus</span>
               </a>
             </li>
             
             <li class="sidebar-item mt-4">
-              <a href="{% url 'stud_logout_fn' %}" class="sidebar-link text-danger">
+              <a href="{% url 'staff_logout_fn' %}" class="sidebar-link text-danger">
                 <span><i class="ti ti-logout"></i></span>
                 <span class="hide-menu">Logout</span>
               </a>
@@ -135,15 +135,15 @@
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="{{student_data.Stud_Profile_Pic.url}}" alt="user" width="35" height="35" class="rounded-circle object-fit-cover">
+                  <img src="{{staff_data.Staff_Profile_Pic.url}}" alt="user" width="35" height="35" class="rounded-circle object-fit-cover">
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body">
-                    <a href="{% url 'stud_profile' %}" class="d-flex align-items-center gap-2 dropdown-item">
+                    <a href="{% url 'staff_profile' %}" class="d-flex align-items-center gap-2 dropdown-item">
                       <i class="ti ti-user fs-6"></i>
                       <p class="mb-0 fs-3">My Profile</p>
                     </a>
-                    <a href="{% url 'stud_logout_fn' %}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                    <a href="{% url 'staff_logout_fn' %}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                   </div>
                 </div>
               </li>
@@ -154,7 +154,7 @@
 
       <div class="container-fluid py-4">
         <div class="row justify-content-center">
-          <div class="col-12 col-lg-11">
+          <div class="col-lg-10 col-lg-8 col-12">
 
             <div class="card schedule-card shadow-lg rounded-4 overflow-hidden">
               <div class="card-header bg-white py-3 border-0">
@@ -166,7 +166,6 @@
                   <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
                       <tr>
-                        <th class="ps-4 border-0">Name</th>
                         <th class="ps-4 border-0">Bus Number</th>
                         <th class="border-0">Bus Route</th>
                         <th class="border-0 text-center">Arrival</th>
@@ -176,17 +175,16 @@
                     <tbody>
                       {% for i in busdata %}
                       <tr>
-                        <td class="ps-4 fw-bold text-dark">{{ request.session.name }}</td>
                         <td class="ps-4 fw-bold text-primary">{{ i.Bus_No }}</td>
                         <td class="fw-semibold">{{ i.Bus_Route }}</td>
                         <td class="text-center">
-                          <span class="badge fw-bold bg-success text-light px-3 py-2 rounded-pill">
-                            {{ i.Arrival }}
+                          <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                            <i class="fa-regular fa-circle-check me-1"></i> {{ i.Arrival }}
                           </span>
                         </td>
                         <td class="text-center">
-                          <span class="badge fw-bold bg-danger text-light px-3 py-2 rounded-pill">
-                            {{ i.Departure }}
+                          <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill">
+                            <i class="fa-regular fa-clock me-1"></i> {{ i.Departure }}
                           </span>
                         </td>
                       </tr>

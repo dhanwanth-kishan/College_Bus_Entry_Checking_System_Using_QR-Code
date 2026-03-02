@@ -107,7 +107,7 @@ def display_staff_bus(request):
     staff=StaffData.objects.get(user=request.user).Bus_Number
     staff_data=StaffData.objects.get(user=request.user)
     busdata=BusData.objects.filter(id=staff)
-    return render(request,'display-stud-bus.html',{'busdata':busdata,'staff':staff,'staff_data':staff_data})
+    return render(request,'display-staff-bus.html',{'busdata':busdata,'staff':staff,'staff_data':staff_data})
 
 
 
@@ -116,7 +116,9 @@ def display_staff_bus(request):
 @never_cache
 @login_required(login_url='staff_login_page')
 def teacher_scan_qr(request):
-    return render(request,'scan-qr.html')
+    staff=StaffData.objects.get(user=request.user)
+    staff_data=StaffData.objects.get(user=request.user)
+    return render(request,'scan-qr.html',{'staff':staff,'staff_data':staff_data})
 
 
 import base64
