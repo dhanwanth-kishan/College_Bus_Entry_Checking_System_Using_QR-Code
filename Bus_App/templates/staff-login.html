@@ -2,76 +2,120 @@
 {% load static %}
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login | TransitX</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Login | TransitX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Nova CSS -->
-  <link rel="stylesheet" href="{% static 'landing-page/assets/css/bootstrap-5.0.0-beta1.min.css' %}">
-  <link rel="stylesheet" href="{% static 'landing-page/assets/css/LineIcons.2.0.css' %}">
-  <link rel="stylesheet" href="{% static 'landing-page/assets/css/animate.css' %}">
-  <link rel="stylesheet" href="{% static 'landing-page/assets/css/lindy-uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'landing-page/assets/css/LineIcons.2.0.css' %}">
+    <link rel="stylesheet" href="{% static 'landing-page/assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'landing-page/assets/css/lindy-uikit.css' %}">
+
+<style>
+  /* 1. The Single Card Container (The Row) */
+  .unified-card-row {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden; /* This clips the image and form to the rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Subtle Entry Animation */
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  /* 2. LHS Image Styling */
+  .login-img-container {
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+  }
+
+  .login-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* 3. RHS Form Styling */
+  .login-card-body {
+    border: none !important;
+    background: transparent !important;
+  }
+
+  /* Responsive Tweaks */
+  @media (max-width: 767.98px) {
+    .unified-card-row {
+      margin: 0 10px; /* Gap so it doesn't touch screen edges on mobile */
+    }
+    .login-img {
+      max-height: 200px; /* Don't let image take over the whole screen on mobile */
+    }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+
+    
 </head>
-
 <body>
 
 <section class="hero-section hero-style-5 img-bg d-flex align-items-center"
   style="min-height:100vh; background-image: url('{% static 'landing-page/assets/img/hero/hero-5/hero-bg.svg' %}')">
 
   <div class="container">
-    <div class="row align-items-stretch g-0  justify-content-center">
+    <div class="row g-0 justify-content-center align-items-stretch">
 
-      
-      <div class="col-lg-6 col-md-7   d-lg-block wow fadeInLeft">
-        <div class="text-center  ">
-          <img src="{% static 'landing-page/assets/img/login-pic.jpg' %}" style="border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;" 
+      <div class="col-11 col-md-5 col-lg-5  d-none d-md-block wow fadeInLeft">
+        <div class="h-100">
+          <img src="{% static 'landing-page/assets/img/login-pic.jpg' %}" 
                alt="QR Bus Entry Illustration"
-               class="img-fluid">
+               class="img-fluid login-img">
         </div>
       </div>
 
-      <div class="col-lg-5 col-md-5  wow d-flex fadeInRight">
-        <div class="card border-0 rounded-end-4   w-100">
-          <div class=" card-body p-5">
+      <div class="col-11 col-md-6 col-lg-4 wow fadeInRight d-flex">
+        <div class="card    login-card  w-100">
+          <div class="card-body p-4 p-sm-5">
 
             <div class="text-center mb-4">
               <h3 class="fw-bold">Staff Login</h3>
-              
             </div>
-           <form method="post" action="{% url 'staff_login_fn' %}">
-    {% csrf_token %}
 
-    <div class="mb-3">
-        <label class="form-label">Username</label>
-        <div class="input-group">
-            <span class="input-group-text bg-white"><i class="lni lni-user"></i></span>
-            <input type="text" name="username" value="{{ old_user }}" class="form-control" placeholder="Username">
-        </div>
-        {% if u_error %}
-            <span class="text-danger small" style="font-size: 1rem;">{{ u_error }}</span>
-        {% endif %}
-    </div>
+            <form method="post" action="{% url 'staff_login_fn' %}">
+                {% csrf_token %}
 
-    <div class="mb-4">
-        <label class="form-label">Password</label>
-        <div class="input-group">
-            <span class="input-group-text bg-white"><i class="lni lni-lock"></i></span>
-            <input type="password" name="password" class="form-control" placeholder="Password">
-        </div>
-        {% if p_error %}
-            <span class="text-danger small" style="font-size: 1rem;">{{ p_error }}</span>
-        {% endif %}
-    </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light "><i class="lni lni-user"></i></span>
+                        <input type="text" name="username" value="{{ old_user }}" class="form-control border-start-0" placeholder="Username" required>
+                    </div>
+                    {% if u_error %}
+                        <div class="text-danger mt-1 small">{{ u_error }}</div>
+                    {% endif %}
+                </div>
 
-    <button type="submit" class="w-100 button radius-50">Login</button>
-</form>
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light "><i class="lni lni-lock"></i></span>
+                        <input type="password" name="password" class="form-control border-start-0" placeholder="Password" required>
+                    </div>
+                    {% if p_error %}
+                        <div class="text-danger mt-1 small">{{ p_error }}</div>
+                    {% endif %}
+                </div>
 
-            <!-- Footer -->
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold">Login</button>
+            </form>
+
             <div class="text-center mt-4">
-              <a href="{%url 'home_page'%}" class="text-primary">
-                ← Back to Home
+              <a href="{% url 'home_page' %}" class="text-decoration-none small text-secondary">
+                <i class="lni lni-arrow-left"></i> Back to Home
               </a>
             </div>
 
@@ -83,22 +127,19 @@
   </div>
 </section>
 
-<!-- Nova JS -->
-<script src="{% static 'landing-page/assets/js/bootstrap-5.0.0-beta1.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{% static 'landing-page/assets/js/wow.min.js' %}"></script>
- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<script>new WOW().init();</script>
 
 {% if messages %}
     {% for message in messages %}
         <script>
-            {% if "error" in message.tags %}
-                swal("Error", "{{ message }}", "error");
-            {% elif "success" in message.tags %}
-                swal("Success", "{{ message }}", "success");
-            {% endif %}
+            swal("{{ message.tags|title }}", "{{ message }}", "{{ message.tags }}");
         </script>
     {% endfor %}
 {% endif %}
+
 </body>
 </html>

@@ -15,8 +15,8 @@ urlpatterns = [
     path('stud_logout_fn/',views.stud_logout_fn,name="stud_logout_fn"),
     path('staff_logout_fn/',views.staff_logout_fn,name="staff_logout_fn"),
 
-    path('scan_qr',views.teacher_scan_qr,name='scan_qr'),
-    path('show_qr',views.show_qr,name='show_qr'),
+    path('scan_qr/',views.teacher_scan_qr,name='scan_qr'),
+    path('show_qr/',views.show_qr,name='show_qr'),
     path("student/qr",views.generate_qr,name="student_qr"),
     path("scan-result/",views.scan_result,name="scan_result"),
 ]

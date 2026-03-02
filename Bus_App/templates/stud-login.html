@@ -19,67 +19,90 @@
 <section class="hero-section hero-style-5 img-bg d-flex align-items-center"
   style="min-height:100vh; background-image: url('{% static 'landing-page/assets/img/hero/hero-5/hero-bg.svg' %}')">
 
-  <div class="container">
-    <div class="row align-items-stretch g-0  justify-content-center">
+ <style>
+  /* Ensure the row allows children to stretch to the same height */
+  .row-stretch {
+    display: flex;
+    align-items: stretch;
+  }
 
-      
-      <div class="col-lg-6 col-md-7   d-lg-block wow fadeInLeft">
-        <div class="text-center  ">
-          <img src="{% static 'landing-page/assets/img/login-pic.jpg' %}" style="border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;" 
+  /* Force the image container to fill the column height */
+  .img-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This is key: it fills height without stretching pixels */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  /* On mobile, stack them and let the image have a set height */
+  @media (max-width: 767.98px) {
+    .img-wrapper img {
+      border-radius: 10px 10px 0 0;
+      height: 250px;
+    }
+    .card {
+      border-radius: 0 0 10px 10px !important;
+    }
+  }
+</style>
+
+ <div class="container">
+    <div class="row g-0 justify-content-center align-items-stretch">
+
+      <div class="col-11 col-md-5 col-lg-5  d-none d-md-block wow fadeInLeft">
+        <div class="h-100">
+          <img src="{% static 'landing-page/assets/img/login-pic.jpg' %}" 
                alt="QR Bus Entry Illustration"
-               class="img-fluid">
+               class="img-fluid login-img">
         </div>
       </div>
 
-      <div class="col-lg-5 col-md-5  wow d-flex fadeInRight">
-        <div class="card border-0 rounded-end-4   w-100">
-          <div class=" card-body p-5">
+      <div class="col-11 col-md-6 col-lg-4 wow fadeInRight d-flex">
+        <div class="card    login-card  w-100">
+          <div class="card-body p-4 p-sm-5">
 
             <div class="text-center mb-4">
               <h3 class="fw-bold">Student Login</h3>
-              
             </div>
-            <form method="post" action="{%url 'stud_login_fn'%}">
-              {% csrf_token %}
 
-              <div class="mb-3">
-                <label class="form-label">Username</label>
-                <div class="input-group form-group ">
-                  <span class="input-group-text p-2 py-2 rounded-start-3 bg-white">
-                    <i class="lni lni-user"></i>
-                  </span>
-                  <input type="text" class="p-2 py-2 rounded-end-3 form-control"
-                        name="username" placeholder="Enter your username">
+            <form method="post" action="{% url 'stud_login_fn' %}">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light "><i class="lni lni-user"></i></span>
+                        <input type="text" name="username" value="{{ old_user }}" class="form-control border-start-0" placeholder="Username" required>
+                    </div>
+                    {% if u_error %}
+                        <div class="text-danger mt-1 small">{{ u_error }}</div>
+                    {% endif %}
                 </div>
-                 {% if u_error %}
-            <span class="text-danger small" style="font-size: 1rem;">{{ u_error }}</span>
-        {% endif %}
-              </div>
 
-              <div class="mb-4">
-                <label class="form-label">Password</label>
-                <div class="input-group">
-                  <span class="input-group-text p-2 py-2 rounded-start-3 bg-white">
-                    <i class="lni lni-lock"></i>
-                  </span>
-                  <input type="password" class="p-2 py-2 rounded-end-3 form-control"
-                        name="password" placeholder="Enter your password">
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light "><i class="lni lni-lock"></i></span>
+                        <input type="password" name="password" class="form-control border-start-0" placeholder="Password" required>
+                    </div>
+                    {% if p_error %}
+                        <div class="text-danger mt-1 small">{{ p_error }}</div>
+                    {% endif %}
                 </div>
-                {% if p_error %}
-            <span class="text-danger small" style="font-size: 1rem;">{{ p_error }}</span>
-        {% endif %}
-              </div>
 
-              <button type="submit" class="w-100 button  radius-50">
-                Login
-              </button>
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold">Login</button>
             </form>
 
-            <!-- Footer -->
             <div class="text-center mt-4">
-              <a href="{%url 'home_page'%}" class="text-primary">
-                ← Back to Home
+              <a href="{% url 'home_page' %}" class="text-decoration-none small text-secondary">
+                <i class="lni lni-arrow-left"></i> Back to Home
               </a>
             </div>
 
@@ -89,6 +112,7 @@
 
     </div>
   </div>
+</div>
 </section>
 
 <!-- Nova JS -->

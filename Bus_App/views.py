@@ -33,7 +33,7 @@ def stud_login_fn(request):
         user_exists = User.objects.filter(username=u_name).exists()
         
         if not user_exists:
-            return render(request, 'stud-login.html', {'u_error': 'Username not found !'})
+            return render(request, 'stud-login.html', {'u_error': 'Username not found'})
 
         user = authenticate(request, username=u_name, password=p_word)
         
@@ -43,7 +43,7 @@ def stud_login_fn(request):
             request.session['name'] = staff.Name
             return redirect('stud_dashboard')
         else:
-            return render(request, 'stud-login.html', {'p_error': 'Invalid password !', 'old_user': u_name})
+            return render(request, 'stud-login.html', {'p_error': 'Invalid password!', 'old_user': u_name})
             
     return render(request, 'stud-login.html')
 
@@ -71,9 +71,6 @@ def stud_logout_fn(request):
     logout(request)
     return redirect('home_page')
 
-def display_bus(request):
-    buses=BusData.objects.all()
-    return  render(request,'display-bus.html',{'buses':buses})    
 
 
 def staff_login_fn(request):
@@ -122,11 +119,26 @@ def teacher_scan_qr(request):
     return render(request,'scan-qr.html')
 
 
+import base64
+from io import BytesIO
+import qrcode
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
+
 @never_cache
 @login_required(login_url='stud_login_page')
 def show_qr(request):
-    return render(request,'show-qr.html')
+    student = StudentData.objects.get(user=request.user)
 
+    qr = qrcode.make(student.Stud_id)
+    buffer = BytesIO()
+    qr.save(buffer, format="PNG")
+    img_str = base64.b64encode(buffer.getvalue()).decode()
+
+    return render(request, 'show-qr.html', {
+        'student': student,
+        'qr_code': img_str
+    })
 def generate_qr(request):
     student=StudentData.objects.get(user=request.user)
     qr_data=student.Stud_id
