@@ -3,17 +3,14 @@ from Bus_App.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.models import User
-import qrcode
-import base64
+import qrcode,base64
 from io import BytesIO
-import qrcode
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.http import HttpResponse
 import datetime as dt
-from django.views.decorators.cache import never_cache
 from django.http import JsonResponse
 from django.contrib.auth import logout
+from django.contrib import messages
 
 
 
@@ -27,10 +24,6 @@ def stud_profile(request):
     student=StudentData.objects.get(user=request.user)
     return render(request,'stud-profile.html',{'student':student})
 
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
-
 def stud_login_fn(request):
     if request.method == 'POST':
         u_name = request.POST.get('username')
@@ -39,6 +32,7 @@ def stud_login_fn(request):
         user_exists = User.objects.filter(username=u_name).exists()
         
         if not user_exists:
+            messages.error(request,'invalid credentials')
             return render(request, 'stud-login.html', {'u_error': 'Username not found'})
 
         user = authenticate(request, username=u_name, password=p_word)
@@ -47,8 +41,10 @@ def stud_login_fn(request):
             login(request, user)
             staff = StudentData.objects.get(user=user)
             request.session['name'] = staff.Name
+            messages.success(request,f'Login Success, Welcome back..{request.session['name']}')
             return redirect('stud_dashboard')
         else:
+            messages.error(request,'invalid credentials')
             return render(request, 'stud-login.html', {'p_error': 'Invalid password!', 'old_user': u_name})
             
     return render(request, 'stud-login.html')
@@ -87,6 +83,7 @@ def staff_login_fn(request):
         user_exists = User.objects.filter(username=u_name).exists()
         
         if not user_exists:
+            messages.error(request,'invalid credentials')
             return render(request, 'staff-login.html', {'u_error': 'Username not found'})
 
         
@@ -96,8 +93,10 @@ def staff_login_fn(request):
             login(request, user)
             staff = StaffData.objects.get(user=user)
             request.session['name'] = staff.Name
+            messages.success(request,f'Login Success, Welcome back..{request.session['name']}')
             return redirect('staff_dashboard')
         else:
+            messages.error(request,'invalid credentials')
             return render(request, 'staff-login.html', {'p_error': 'Invalid password', 'old_user': u_name})
             
     return render(request, 'staff-login.html')  
@@ -136,16 +135,6 @@ def show_qr(request):
         'student': student,
         'qr_code': img_str
     })
-def generate_qr(request):
-    student=StudentData.objects.get(user=request.user)
-    qr_data=student.Stud_id
-    qr=qrcode.make(qr_data)
-    response=HttpResponse(content_type="image/png")
-    response["Content-Disposition"]=f'attachment; filename="{student.Stud_id}_qr.png"'
-    qr.save(response,"PNG")
-    return response
-
-
 
 
 def scan_result(request):
@@ -211,3 +200,16 @@ def view_qr(request):
 def staff_logout_fn(request):
     logout(request)
     return redirect('home_page')
+
+def get_in_touch(request):
+    if request.method=="POST":
+        name=request.POST.get('name')
+        phone=request.POST.get('phone')
+        email=request.POST.get('email')
+        subject=request.POST.get('subject')
+        message=request.POST.get('message')
+        obj3=GetINTouch(Name=name,Number=phone,Email=email,Subject=subject,Message=message)
+        obj3.save()
+    
+        return redirect(home_page)
+    

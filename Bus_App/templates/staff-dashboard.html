@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TransitX Dashboard</title>
+  <title>Dashboard</title>
 
   <!-- Font Awesome -->
   <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
@@ -160,6 +160,19 @@
 <script src="{% static 'dashboard/src/assets/js/sidebarmenu.js'%}"></script>
 <script src="{% static 'dashboard/src/assets/js/app.min.js'%}"></script>
 <script src="{% static 'dashboard/src/assets/libs/simplebar/dist/simplebar.js'%}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            {% if "error" in message.tags %}
+                swal("Error", "{{ message }}", "error");
+            {% elif "success" in message.tags %}
+                swal("Success", "{{ message }}", "success");
+            {% endif %}
+        </script>
+    {% endfor %}
+{% endif %}
 
 </body>
 </html>

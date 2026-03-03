@@ -17,7 +17,7 @@ urlpatterns = [
 
     path('scan_qr/',views.teacher_scan_qr,name='scan_qr'),
     path('show_qr/',views.show_qr,name='show_qr'),
-    path("student/qr/",views.generate_qr,name="student_qr"),
     path("scan-result/",views.scan_result,name="scan-result"),
+    path("get_in_touch/",views.get_in_touch,name="get_in_touch"),
 ]
 

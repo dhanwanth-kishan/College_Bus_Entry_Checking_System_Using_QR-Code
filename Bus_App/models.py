@@ -47,5 +47,12 @@ class BusEntry(models.Model):
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
 
+
+class GetINTouch(models.Model):
+   Name=models.CharField(max_length=30)
+   Number=models.IntegerField(null=True)
+   Email=models.EmailField(max_length=30)
+   Subject=models.CharField(max_length=30)
+   Message=models.TextField(null=True)
   
 
