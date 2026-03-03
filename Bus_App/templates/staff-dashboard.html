@@ -31,15 +31,8 @@
 
 <body>
 
-<div class="page-wrapper"
-     id="main-wrapper"
-     data-layout="vertical"
-     data-navbarbg="skin6"
-     data-sidebartype="full"
-     data-sidebar-position="fixed"
-     data-header-position="fixed">
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
 
-  <!-- ================= SIDEBAR ================= -->
     <aside class="left-sidebar">
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between px-4 py-3">
@@ -95,12 +88,10 @@
         </nav>
       </div>
     </aside>
-  <!-- ================= END SIDEBAR ================= -->
 
 
   {% block content %}
 
-  <!-- ================= HEADER ================= -->
    <div class="body-wrapper">
       
       <header class="app-header">
@@ -133,11 +124,6 @@
           </div>
         </nav>
       </header>
- 
-  <!-- ================= END HEADER ================= -->
-
-
-  <!-- ================= CONTENT ================= -->
   <div class="container-fluid">
     <div class="container py-4">
       <div class="hero-image-wrapper text-center mt-4">
@@ -163,15 +149,11 @@
       </div>
     </div>
   </div>
-  <!-- ================= END CONTENT ================= -->
-
+ 
   {% endblock %}
 
       </div>
 </div>
-
-
-<!-- ================= SCRIPTS ================= -->
 
 <script src="{% static 'dashboard/src/assets/libs/jquery/dist/jquery.min.js'%}"></script>
 <script src="{% static 'dashboard/src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js'%}"></script>

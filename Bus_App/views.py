@@ -10,12 +10,12 @@ import qrcode
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.http import HttpResponse
-from django.utils import timezone
+import datetime as dt
 from django.views.decorators.cache import never_cache
 from django.http import JsonResponse
 from django.contrib.auth import logout
 
-# Create your views here.
+
 
 def home_page(request):
     return render(request,'home.html')
@@ -115,18 +115,12 @@ def display_staff_bus(request):
     busdata=BusData.objects.filter(id=staff)
     return render(request,'display-staff-bus.html',{'busdata':busdata,'staff':staff,'staff_data':staff_data})
 
-
-
-
-
 @never_cache
 @login_required(login_url='staff_login_page')
 def teacher_scan_qr(request):
     staff=StaffData.objects.get(user=request.user)
     staff_data=StaffData.objects.get(user=request.user)
     return render(request,'scan-qr.html',{'staff':staff,'staff_data':staff_data})
-
-
 
 @never_cache
 @login_required(login_url='stud_login_page')
@@ -151,10 +145,8 @@ def generate_qr(request):
     qr.save(response,"PNG")
     return response
 
-from django.utils import timezone
 
-from django.http import JsonResponse
-from django.utils import timezone
+
 
 def scan_result(request):
     student_id = request.GET.get('student_id')
@@ -164,8 +156,6 @@ def scan_result(request):
             "status": "error",
             "message": "Invalid QR Data"
         })
-
-    # Check student
     try:
         student = StudentData.objects.get(Stud_id=student_id)
     except StudentData.DoesNotExist:
@@ -173,8 +163,6 @@ def scan_result(request):
             "status": "error",
             "message": "Invalid QR Code"
         })
-
-    # Get staff
     try:
         staff = StaffData.objects.get(user=request.user)
     except StaffData.DoesNotExist:
@@ -183,23 +171,20 @@ def scan_result(request):
             "message": "Staff not found"
         })
 
-    # 🔥 CHECK BUS FIRST
     if str(student.Bus_Number).strip() != str(staff.Bus_Number).strip():
         return JsonResponse({
             "status": "error",
             "message": "Student does not belong to your bus"
         })
 
-    today = timezone.now().date()
+    today = dt.datetime.now().date()
 
-    # 🔥 THEN CHECK DUPLICATE
     if BusEntry.objects.filter(student=student, date=today).exists():
         return JsonResponse({
             "status": "error",
             "message": "Duplicate Entry - Already Scanned Today"
         })
 
-    # Create entry
     BusEntry.objects.create(
         student=student,
         staff=staff

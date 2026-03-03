@@ -9,40 +9,39 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
   <link rel="shortcut icon" type="image/png" href="{% static 'dashboard/src/assets/images/logos/favicon.png'%}" />
   <link rel="stylesheet" href="{% static 'dashboard/src/assets/css/styles.min.css'%}" />
-  <link rel="stylesheet" href="{% static 'assets/style.css'%}" />
+  <link rel="stylesheet" href="{% static 'assets/style.css'%}" >
 
   <style>
-    .left-sidebar {
-      width: 260px;
-      background: #fff;
-      transition: 0.3s ease-in-out;
-    }
-    @media (max-width: 1199px) {
-      .left-sidebar {
-        position: fixed;
-        left: -260px;
-        top: 0;
-        height: 100%;
-        z-index: 1000;
-      }
-      .hero-image-wrapper {
-      
-      border:none;
-      padding-top: 180px ;
-    }
-      #main-wrapper.show-sidebar .left-sidebar {
-        left: 0;
-      }
-    }
-      .body-wrapper {
-        margin-left: 260px;
-      }
-    .hero-image-wrapper {
-      
-      border:none;
-      padding-top: 140px ;
-    }
+ .app-header {
+  width: 100%;
+  background: #fff;
+  z-index: 10;
+}
+/* Ensure the profile container stays visible on large screens */
+.app-header .navbar .ms-auto {
+    display: flex !important;
+}
 
+/* Specifically target the navbar-nav inside that container */
+.app-header .navbar-nav.flex-row {
+    display: flex !important;
+}
+
+/* Ensure the link itself isn't hidden by a 'd-none' utility somewhere */
+#drop2 {
+    display: flex !important;
+    align-items: center;
+}
+
+.nav-icon-hover img {
+  display: block !important;
+  visibility: visible !important;
+}
+@media (max-width: 1199px) {
+  .body-wrapper {
+    margin-left: 0 !important;
+  }
+}
   
 
 @media (min-width: 1200px) {
@@ -52,13 +51,17 @@
     }
 }
 
+
+
+
   </style>
 </head>
 
 <body>
 
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
-   <aside class="left-sidebar">
+     <aside class="left-sidebar">
+      <div>
         <div class="brand-logo d-flex align-items-center justify-content-between px-4 py-3">
           <h2 class="fw-bolder mb-0" style="color:purple;">TransitX</h2>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -112,7 +115,12 @@
         </nav>
       </div>
     </aside>
-<div class="body-wrapper">
+
+
+  
+
+   <div class="body-wrapper">
+      
       <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light border-bottom">
           <ul class="navbar-nav">
@@ -142,9 +150,9 @@
             </ul>
           </div>
         </nav>
-</header>
+      </header>
 
-<div class="container py-5">
+    <div class="container py-5">
 
   <div class="scan-card mx-auto mt-4 text-center">
 

@@ -7,58 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bus Schedule</title>
   <link rel="stylesheet" href="{% static 'dashboard/src/assets/css/styles.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/style.css' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    .app-header {
-      height: 70px !important;
-      display: flex;
-      align-items: center;
-      background: #ffffff !important;
-      border-bottom: 1px solid #ebf1f6;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 100;
-      padding:20px;
-    }
 
-    .app-header .navbar {
-      padding-right: 0px !important;
-      width: 100%;
-      min-height: 64px !important;
-    }
-    #main-wrapper.show-sidebar .left-sidebar {
-      left: 0 !important;
-    }
-
-    /* SMOOTH CONTENT ALIGNMENT: Ensures box starts below the slim header */
-    .body-wrapper {
-      padding-top: 64px !important;
-      min-height: 100vh;
-      background-color: #fcfcfc;
-    }
-
-    /* PREVENT OVERLAP: Sidebar pushes content on desktop */
-    @media (min-width: 1200px) {
-      .body-wrapper {
-        margin-left: 270px; /* Adjust based on your sidebar width */
-      }
-    }
-
-    /* MOBILE SLIMMING */
-    @media (max-width: 768px) {
-      .app-header { height: 56px !important; }
-      .app-header .navbar { min-height: 56px !important; padding: 0 15px !important; }
-      .body-wrapper { padding-top: 56px !important; }
-    }
-
-    /* TABLE POLISH */
-    .schedule-card {
-      border: 1px solid #eee !important;
-      margin-bottom: 2rem;
-    }
-  </style>
 </head>
 
 <body>
