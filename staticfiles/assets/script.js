@@ -1,65 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const scanBtn = document.getElementById("scan-btn");
     const reader = document.getElementById("reader");
     const resultDiv = document.getElementById("result");
 
     let scanner = null;
-    let isProcessing = false;
 
-    if (scanBtn) {
-        scanBtn.addEventListener("click", () => {
-            scanBtn.style.display = "none";
-            startScanner();
-        });
-    }
+    scanBtn.onclick = () => {
+        scanBtn.style.display = "none";
+        reader.style.display = "block";
 
-    function startScanner() {
-        if (!scanner) {
-            scanner = new Html5Qrcode("reader");
-        }
+        scanner = new Html5Qrcode("reader");
 
         scanner.start(
             { facingMode: "environment" },
-            {
-                fps: 25,
-                qrbox: { width: 250, height: 250 }
-            },
-            onScanSuccess,
-            () => {} 
-        ).catch(err => {
-            console.error("Camera error:", err);
-            alert("Camera access denied.");
-            scanBtn.style.display = "block";
-        });
-    }
+            { fps: 20, qrbox: 250 },
+            (decodedText) => {
 
-    function onScanSuccess(decodedText) {
-        if (isProcessing) return;
-        isProcessing = true;
+                scanner.pause();
 
-        scanner.pause(true); 
+                fetch(`/Bus_App/scan_result/?student_id=${decodedText}`)
+                    .then(res => res.json())
+                    .then(data => {
 
-        fetch(`/Bus_App/scan-result/?student_id=${encodeURIComponent(decodedText.trim())}`)
-            .then(res => res.text())
-            .then(html => {
-                resultDiv.innerHTML = html;
-                resultDiv.className = "success";
-                setTimeout(() => {
-                    resultDiv.innerHTML = "";
-                    resultDiv.className = "";
-                    isProcessing = false;
-                    scanner.resume();
-                }, 5000);
-            })
-            .catch(err => {
-                resultDiv.innerHTML = "<p>Error connecting to server</p>";
-                resultDiv.className = "error";
-                setTimeout(() => {
-                    resultDiv.innerHTML = "";
-                    resultDiv.className = "";
-                    isProcessing = false;
-                    scanner.resume();
-                }, 3000);
-            });
-    }
+                        console.log("Server Response:", data);
+
+                        if (data.status === "error") {
+                            Swal.fire("Denied", data.message, "error")
+                                .then(() => scanner.resume());
+                            return;
+                        }
+
+                        Swal.fire("Success", "Entry Allowed", "success");
+
+                        resultDiv.innerHTML = `
+                            <div class="alert alert-success mt-3">
+                                <b>${data.student.name}</b><br>
+                                ID: ${data.student.id}<br>
+                                Bus: ${data.student.bus}<br>
+                                Dept: ${data.student.department}
+                            </div>
+                        `;
+
+                        setTimeout(() => scanner.resume(), 1500);
+
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        Swal.fire("Server Error", "Try again", "error");
+                        scanner.resume();
+                    });
+            }
+        );
+
+    };
+
 });

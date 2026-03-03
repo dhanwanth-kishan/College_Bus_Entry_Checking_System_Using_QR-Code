@@ -4,11 +4,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.models import User
 import qrcode
+import base64
+from io import BytesIO
+import qrcode
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from django.http import HttpResponse
 from django.utils import timezone
-from django.contrib import messages
 from django.views.decorators.cache import never_cache
+from django.http import JsonResponse
 from django.contrib.auth import logout
+
 # Create your views here.
 
 def home_page(request):
@@ -121,11 +127,6 @@ def teacher_scan_qr(request):
     return render(request,'scan-qr.html',{'staff':staff,'staff_data':staff_data})
 
 
-import base64
-from io import BytesIO
-import qrcode
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.cache import never_cache
 
 @never_cache
 @login_required(login_url='stud_login_page')
@@ -150,35 +151,57 @@ def generate_qr(request):
     qr.save(response,"PNG")
     return response
 
+from django.utils import timezone
+
 def scan_result(request):
     student_id = request.GET.get('student_id')
+
+    if not student_id:
+        return JsonResponse({
+            "status": "error",
+            "message": "Invalid QR Data"
+        })
 
     try:
         student = StudentData.objects.get(Stud_id=student_id)
     except StudentData.DoesNotExist:
-        return render(request, 'scan-result.html', {
-            'error': 'Invalid QR Code'
+        return JsonResponse({
+            "status": "error",
+            "message": "Invalid QR Code"
         })
 
     today = timezone.now().date()
 
     if BusEntry.objects.filter(student=student, date=today).exists():
-        return render(request, 'scan-result.html', {
-            'student': student,
-            'error': 'Duplicate Entry'
+        return JsonResponse({
+            "status": "error",
+            "message": "Duplicate Entry - Already Scanned Today"
         })
-    
-    staff=StaffData.objects.get(user=request.user)
+
+    staff = StaffData.objects.get(user=request.user)
+
+  
+    if student.Bus_Number != staff.Bus_Number:
+        return JsonResponse({
+            "status": "error",
+            "message": "Student does not belong to your bus"
+        })
+
     BusEntry.objects.create(
         student=student,
         staff=staff
     )
 
-    return render(request, 'scan-result.html', {
-        'student': student,
-        'success': 'Entry Allowed'
+    return JsonResponse({
+        "status": "success",
+        "message": "Entry Allowed",
+        "student": {
+            "name": student.Name,
+            "id": student.Stud_id,
+            "bus": student.Bus_Number,
+            "department": student.Department
+        }
     })
-
 
 def view_qr(request):
     try:
