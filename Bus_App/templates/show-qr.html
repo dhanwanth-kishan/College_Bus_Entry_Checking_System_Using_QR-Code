@@ -8,6 +8,7 @@
   <title>Student</title>
   
   <link rel="stylesheet" href="{% static 'dashboard/src/assets/css/styles.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/styles.css' %}" >
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
@@ -24,7 +25,6 @@
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
-    /* Fix for smooth sidebar transition */
     #main-wrapper.show-sidebar .left-sidebar {
       left: 0 !important;
     }
@@ -168,27 +168,7 @@
   </div>
 </div>
 
-<style>
-  .qr-box {
-    margin-top:20px;
-    width: 240px;
-    height: 240px;
-    border: 2px solid black;
-    border-radius: 16px;
-    background: #f8f9fa;
-    padding-top: 12px;
-  }
 
-  .qr-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-
-  .info-box span {
-    font-size: 0.95rem;
-  }
-</style>
 </div>
 </div>
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

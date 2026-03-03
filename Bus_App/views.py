@@ -153,6 +153,9 @@ def generate_qr(request):
 
 from django.utils import timezone
 
+from django.http import JsonResponse
+from django.utils import timezone
+
 def scan_result(request):
     student_id = request.GET.get('student_id')
 
@@ -162,6 +165,7 @@ def scan_result(request):
             "message": "Invalid QR Data"
         })
 
+    # Check student
     try:
         student = StudentData.objects.get(Stud_id=student_id)
     except StudentData.DoesNotExist:
@@ -170,23 +174,32 @@ def scan_result(request):
             "message": "Invalid QR Code"
         })
 
+    # Get staff
+    try:
+        staff = StaffData.objects.get(user=request.user)
+    except StaffData.DoesNotExist:
+        return JsonResponse({
+            "status": "error",
+            "message": "Staff not found"
+        })
+
+    # 🔥 CHECK BUS FIRST
+    if str(student.Bus_Number).strip() != str(staff.Bus_Number).strip():
+        return JsonResponse({
+            "status": "error",
+            "message": "Student does not belong to your bus"
+        })
+
     today = timezone.now().date()
 
+    # 🔥 THEN CHECK DUPLICATE
     if BusEntry.objects.filter(student=student, date=today).exists():
         return JsonResponse({
             "status": "error",
             "message": "Duplicate Entry - Already Scanned Today"
         })
 
-    staff = StaffData.objects.get(user=request.user)
-
-  
-    if student.Bus_Number != staff.Bus_Number:
-        return JsonResponse({
-            "status": "error",
-            "message": "Student does not belong to your bus"
-        })
-
+    # Create entry
     BusEntry.objects.create(
         student=student,
         staff=staff
@@ -202,7 +215,6 @@ def scan_result(request):
             "department": student.Department
         }
     })
-
 def view_qr(request):
     try:
         student = StudentData.objects.get(user=request.user)

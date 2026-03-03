@@ -6,28 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TransitX - Bus Entry Scan</title>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/png"
-        href="{% static 'dashboard/src/assets/images/logos/favicon.png'%}" />
-
-  <!-- Main CSS -->
-  <link rel="stylesheet"
-        href="{% static 'dashboard/src/assets/css/styles.min.css'%}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
+  <link rel="shortcut icon" type="image/png" href="{% static 'dashboard/src/assets/images/logos/favicon.png'%}" />
+  <link rel="stylesheet" href="{% static 'dashboard/src/assets/css/styles.min.css'%}" />
+  <link rel="stylesheet" href="{% static 'assets/style.css'%}" />
 
   <style>
-    /* ================= SIDEBAR ================= */
-
     .left-sidebar {
       width: 260px;
       background: #fff;
       transition: 0.3s ease-in-out;
     }
-
-    /* Mobile & Medium Screens */
     @media (max-width: 1199px) {
       .left-sidebar {
         position: fixed;
@@ -41,80 +30,20 @@
       border:none;
       padding-top: 180px ;
     }
-        #scan-btn {
-      background: linear-gradient(45deg, #6f42c1, #a020f0);
-      color: white;
-      border: none;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 4px 15px rgba(111,66,193,0.4);
-
-    }
-
       #main-wrapper.show-sidebar .left-sidebar {
         left: 0;
       }
-
-          
-      
     }
-
-    /* Desktop (xl and up) */
-    @media (min-width: 1200px) {
-      .left-sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 100%;
-      }
-
       .body-wrapper {
         margin-left: 260px;
       }
-    }
-     
-
-    /* ================= HERO SECTION ================= */
-
     .hero-image-wrapper {
       
       border:none;
       padding-top: 140px ;
     }
 
-    #scan-btn {
-      background: linear-gradient(45deg, #6f42c1, #a020f0);
-      color: white;
-      border: none;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 4px 15px rgba(111,66,193,0.4);
-    }
-
-    #scan-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(111,66,193,0.6);
-    }
-
-    
-    #reader {
-    margin-top: 40px;
-    margin-left: auto;   
-    margin-right: auto;  
-    border-radius: 15px;
-    overflow: hidden;
-    border: 2px rounded solid;
-    width: 100%;        
-    max-width: 450px;    
-}
+  
 
 @media (min-width: 1200px) {
     .hero-image-wrapper {
@@ -122,87 +51,14 @@
         margin: 0 auto;
     }
 }
-/* ===== SCAN CARD ===== */
-.scan-card {
-  max-width: 650px;
-  padding: 50px 30px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #ffffff, #f8f9ff);
-  box-shadow: 0 15px 40px rgba(111, 66, 193, 0.15);
-  backdrop-filter: blur(10px);
-}
-
-/* ===== TITLE ===== */
-.scan-title {
-  font-weight: 700;
-  font-size: 2rem;
-  background: linear-gradient(45deg, #6f42c1, #a020f0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.scan-subtitle {
-  color: #6c757d;
-  font-size: 0.95rem;
-}
-
-/* ===== BUTTON ===== */
-.scan-btn {
-  background: linear-gradient(45deg, #6f42c1, #a020f0);
-  color: white;
-  border: none;
-  padding: 14px 40px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(111, 66, 193, 0.35);
-}
-
-.scan-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(111, 66, 193, 0.5);
-}
-
-.scan-btn:active {
-  transform: scale(0.97);
-}
-
-/* ===== QR READER ===== */
-#reader {
-  border-radius: 15px;
-  overflow: hidden;
-  border: 4px solid #f3f0ff;
- 
-}
-
-/* ===== RESULT BOX ===== */
-.scan-result {
-  min-height: 50px;
-  padding: 12px 20px;
-  border-radius: 12px;
-  background: #f8f9ff;
-  font-weight: 500;
-  color: #333;
-}
 
   </style>
 </head>
 
 <body>
 
-<div class="page-wrapper"
-     id="main-wrapper"
-     data-layout="vertical"
-     data-navbarbg="skin6"
-     data-sidebartype="full"
-     data-sidebar-position="fixed"
-     data-header-position="fixed">
-
-  <!-- ================= SIDEBAR ================= -->
-    <aside class="left-sidebar">
-      <div>
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+   <aside class="left-sidebar">
         <div class="brand-logo d-flex align-items-center justify-content-between px-4 py-3">
           <h2 class="fw-bolder mb-0" style="color:purple;">TransitX</h2>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -256,13 +112,7 @@
         </nav>
       </div>
     </aside>
-  <!-- ================= END SIDEBAR ================= -->
-
-
-
-  <!-- ================= HEADER ================= -->
 <div class="body-wrapper">
-      
       <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light border-bottom">
           <ul class="navbar-nav">
@@ -293,10 +143,7 @@
           </div>
         </nav>
 </header>
- 
- 
- 
-  <!-- ================= END HEADER ================= -->
+
 <div class="container py-5">
 
   <div class="scan-card mx-auto mt-4 text-center">
@@ -319,17 +166,9 @@
 
 </div>
 
-<!-- ================= SCRIPTS ================= -->
-
-<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- QR Library -->
 <script src="https://unpkg.com/html5-qrcode"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static 'assets/script.js'%}"></script>
-
-<script src="{% static 'dashboard/src/assets/libs/jquery/dist/jquery.min.js'%}"></script>
 <script src="{% static 'dashboard/src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js'%}"></script>
 <script src="{% static 'dashboard/src/assets/js/sidebarmenu.js'%}"></script>
 <script src="{% static 'dashboard/src/assets/js/app.min.js'%}"></script>

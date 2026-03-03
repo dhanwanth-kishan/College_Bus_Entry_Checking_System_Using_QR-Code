@@ -9,56 +9,7 @@
   <link rel="stylesheet" href="{% static 'dashboard/src/assets/css/styles.min.css' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    .app-header {
-      height: 70px !important;
-      display: flex;
-      align-items: center;
-      background: #ffffff !important;
-      border-bottom: 1px solid #ebf1f6;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 100;
-      padding:20px;
-    }
-
-    .app-header .navbar {
-      padding-right: 0px !important;
-      width: 100%;
-      min-height: 64px !important;
-    }
-    #main-wrapper.show-sidebar .left-sidebar {
-      left: 0 !important;
-    }
-
-    /* SMOOTH CONTENT ALIGNMENT: Ensures box starts below the slim header */
-    .body-wrapper {
-      padding-top: 64px !important;
-      min-height: 100vh;
-      background-color: #fcfcfc;
-    }
-
-    /* PREVENT OVERLAP: Sidebar pushes content on desktop */
-    @media (min-width: 1200px) {
-      .body-wrapper {
-        margin-left: 270px; /* Adjust based on your sidebar width */
-      }
-    }
-
-    /* MOBILE SLIMMING */
-    @media (max-width: 768px) {
-      .app-header { height: 56px !important; }
-      .app-header .navbar { min-height: 56px !important; padding: 0 15px !important; }
-      .body-wrapper { padding-top: 56px !important; }
-    }
-
-    /* TABLE POLISH */
-    .schedule-card {
-      border: 1px solid #eee !important;
-      margin-bottom: 2rem;
-    }
-  </style>
+ 
 </head>
 
 <body>
@@ -122,7 +73,7 @@
     </aside>
     <div class="body-wrapper">
       <header class="app-header">
-       <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+       <nav class="navbar mb-3 navbar-expand-lg navbar-light border-bottom">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
               <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
@@ -156,8 +107,8 @@
         <div class="row justify-content-center">
           <div class="col-12 col-lg-11">
 
-            <div class="card schedule-card shadow-lg rounded-4 overflow-hidden">
-              <div class="card-header bg-white py-3 border-0">
+            <div class="card mt-4 schedule-card shadow-lg rounded-4 overflow-hidden">
+              <div class="card-header mt-5  bg-white  border-0">
                 <h4 class="fw-bold mb-0 text-dark text-center">Bus Schedule</h4>
               </div>
 
@@ -177,7 +128,7 @@
                       {% for i in busdata %}
                       <tr>
                         <td class="ps-4 fw-bold text-dark">{{ request.session.name }}</td>
-                        <td class="ps-4 fw-bold text-primary">{{ i.Bus_No }}</td>
+                        <td class="ps-5 fw-bold text-primary">{{ i.Bus_No }}</td>
                         <td class="fw-semibold">{{ i.Bus_Route }}</td>
                         <td class="text-center">
                           <span class="badge fw-bold bg-success text-light px-3 py-2 rounded-pill">
